@@ -1,0 +1,11 @@
+[dev]
+node1
+
+[prod]
+node2
+
+
+[servers:children]
+prod
+dev
+
