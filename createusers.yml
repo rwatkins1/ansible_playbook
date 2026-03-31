@@ -1,0 +1,24 @@
+---
+- name: create groups and users
+  hosts: node1
+  become: true
+  vars: 
+    names: 
+      - "james" 
+      - "john"
+      - "larry"
+      - "tom" 
+  tasks: 
+  - name: create groups
+    ansible.builtin.group:
+      name: sys_admin_linux
+      state: present
+
+  - name: Add users from the list name and append to group
+    ansible.builtin.user:
+      name: "{{ item }}" 
+      shell: /bin/bash
+      groups: sys_admin_linux
+      append: yes
+    loop: "{{ names }}"
+
